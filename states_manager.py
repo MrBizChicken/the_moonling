@@ -1,5 +1,5 @@
 from constants import *
-import sys, pygame, player, camera, wall, block, random, main_drop
+import sys, pygame, player, camera, wall, block, random, main_drop, enemy
 
 
 
@@ -12,6 +12,8 @@ class States_manager:
         self.all_group = pygame.sprite.Group()
         self.player_group = pygame.sprite.Group()
         self.items = pygame.sprite.Group()
+        self.enemy = pygame.sprite.Group()
+
 
 
         n = 20
@@ -22,10 +24,13 @@ class States_manager:
         # self.player_group.add(self.player)
 
         # adds walls
-        for i in range(100):
-            r = random.randint(0, GAME_WORLD_W) // BLOCK_SIZE * BLOCK_SIZE
-            c = random.randint(0, GAME_WORLD_H) // BLOCK_SIZE * BLOCK_SIZE
-            self.all_group.add(wall.Wall(r, c))
+        # for i in range(100):
+        #     r = random.randint(0, GAME_WORLD_W) // BLOCK_SIZE * BLOCK_SIZE
+        #     c = random.randint(0, GAME_WORLD_H) // BLOCK_SIZE * BLOCK_SIZE
+        self.all_group.add(enemy.Enemy(300, 268))
+
+        self.all_group.add(wall.Wall(300 ,300))
+        self.all_group.add(wall.Wall(BLOCK_SIZE ,BLOCK_SIZE))
 
 
         # adds pickups
@@ -117,7 +122,7 @@ class States_manager:
             pass
         elif self.state == "running":
             self.camera.update(self.player)
-            self.all_group.update()
+            self.all_group.update(self.all_group)
             self.player_group.update(self.all_group)
             self.items.update(self.player_group)
 
