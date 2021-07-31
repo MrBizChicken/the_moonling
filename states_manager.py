@@ -24,6 +24,7 @@ class States_manager:
         # self.player_group.add(self.player)
 
         # adds walls
+<<<<<<< HEAD
         # for i in range(100):
         #     r = random.randint(0, GAME_WORLD_W) // BLOCK_SIZE * BLOCK_SIZE
         #     c = random.randint(0, GAME_WORLD_H) // BLOCK_SIZE * BLOCK_SIZE
@@ -31,6 +32,20 @@ class States_manager:
 
         self.all_group.add(wall.Wall(300 ,300))
         self.all_group.add(wall.Wall(BLOCK_SIZE ,BLOCK_SIZE))
+=======
+        for r in range(n):
+            for c in range(n):
+                self.all_group.add(wall.Wall(r * BLOCK_SIZE, c * BLOCK_SIZE))
+
+        # self.all_group.add(wall.Wall(1 * BLOCK_SIZE, 1 * BLOCK_SIZE))
+        # self.all_group.add(wall.Wall(2 * BLOCK_SIZE, 1 * BLOCK_SIZE))
+        # self.all_group.add(wall.Wall(3 * BLOCK_SIZE, 1 * BLOCK_SIZE))
+        #
+        #
+        # self.all_group.add(wall.Wall(1 * BLOCK_SIZE, 3 * BLOCK_SIZE))
+        # self.all_group.add(wall.Wall(2 * BLOCK_SIZE, 3 * BLOCK_SIZE))
+        # self.all_group.add(wall.Wall(5 * BLOCK_SIZE, 3 * BLOCK_SIZE))
+>>>>>>> 6def568c0994c7fe0c20e8e9b1ea9ca1fd33255d
 
 
         # adds pickups
@@ -80,7 +95,7 @@ class States_manager:
     def draw(self, surface):
         # surface.fill((100, 100, 100))#background
 
-
+        self.draw_grid(surface)
         if self.state == "start":
             surface.fill((100, 100, 255))#background
 
@@ -101,7 +116,7 @@ class States_manager:
 
 
             self.camera.draw(surface)
-            self.draw_grid(surface)
+
 
 
         elif self.state == "paused":
@@ -122,7 +137,11 @@ class States_manager:
             pass
         elif self.state == "running":
             self.camera.update(self.player)
+<<<<<<< HEAD
             self.all_group.update(self.all_group)
+=======
+            self.all_group.update(self.all_group, self.player_group)
+>>>>>>> 6def568c0994c7fe0c20e8e9b1ea9ca1fd33255d
             self.player_group.update(self.all_group)
             self.items.update(self.player_group)
 
