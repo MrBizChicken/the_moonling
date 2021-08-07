@@ -6,12 +6,12 @@ class Player(Main_block):
     def __init__(self):
 
 
-        self.x, self.y = BLOCK_SIZE, BLOCK_SIZE
+        self.x, self.y = BLOCK_SIZE, BLOCK_SIZE * 2
         super().__init__(self.x, self.y)
 
         self.speed = BLOCK_SIZE // 8
-        self.grav = 0.3
-        self.jump_vel = -0.9
+        self.grav = GRAVITY
+        self.jump_vel = PLAYER_JUMP_VEL
         self.dir = "right"
         self.y_vel = 0.1
 
@@ -30,6 +30,12 @@ class Player(Main_block):
 
 
     def falling(self, all_group):
+
+        if self.y_vel > PLAYER_MAX_Y_VEL:
+            self.y_vel = PLAYER_MAX_Y_VEL
+
+        if self.y_vel < -PLAYER_MAX_Y_VEL:
+            self.y_vel = -PLAYER_MAX_Y_VEL
 
 
         self.y_vel += self.grav
@@ -127,6 +133,6 @@ class Player(Main_block):
             #         self.rect = self.rect.move(0, self.speed)
 
         #z jump
-        if (keys[pygame.K_z]):
+        if (keys[pygame.K_z] or keys[pygame.K_w]):
             # self.rect = self.rect.move(0, -10)
             self.y_vel += self.jump_vel

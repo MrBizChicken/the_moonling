@@ -1,5 +1,9 @@
 from constants import *
+<<<<<<< HEAD
 import sys, pygame, player, camera, wall, block, random, main_drop, fuel
+=======
+import sys, pygame, player, camera, wall, block, random, main_drop, floor
+>>>>>>> d00e0d8983056448e3f228a30102e07ddeb722b5
 
 
 
@@ -22,10 +26,32 @@ class States_manager:
         # self.player_group.add(self.player)
 
         # adds walls
-        for i in range(100):
-            r = random.randint(0, GAME_WORLD_W) // BLOCK_SIZE * BLOCK_SIZE
-            c = random.randint(0, GAME_WORLD_H) // BLOCK_SIZE * BLOCK_SIZE
-            self.all_group.add(wall.Wall(r, c))
+        for r in range(n):
+            for c in range(n):
+
+                # self.all_group.add(wall.Wall(r * BLOCK_SIZE, c * BLOCK_SIZE))
+
+
+                if r == 0 or c == 0 or r == n - 1 or c == n - 1:
+                    self.all_group.add(floor.Floor(r * BLOCK_SIZE, c * BLOCK_SIZE))
+                else:
+                    d1 = random.randint(0, 2)
+                    d2 = random.randint(0, 1)
+                    if d1 == 2:
+                        if d2 == 0:
+                            self.all_group.add(wall.Wall(r * BLOCK_SIZE, c * BLOCK_SIZE))
+                        else:
+                            self.all_group.add(floor.Floor(r * BLOCK_SIZE, c * BLOCK_SIZE))
+
+
+        # self.all_group.add(wall.Wall(1 * BLOCK_SIZE, 1 * BLOCK_SIZE))
+        # self.all_group.add(wall.Wall(2 * BLOCK_SIZE, 1 * BLOCK_SIZE))
+        # self.all_group.add(wall.Wall(3 * BLOCK_SIZE, 1 * BLOCK_SIZE))
+        #
+        #
+        # self.all_group.add(wall.Wall(1 * BLOCK_SIZE, 3 * BLOCK_SIZE))
+        # self.all_group.add(wall.Wall(2 * BLOCK_SIZE, 3 * BLOCK_SIZE))
+        # self.all_group.add(wall.Wall(5 * BLOCK_SIZE, 3 * BLOCK_SIZE))
 
         self.all_group.add(fuel.Fuel(0, 0))    
 
@@ -77,9 +103,9 @@ class States_manager:
     def draw(self, surface):
         # surface.fill((100, 100, 100))#background
 
-
+        # self.draw_grid(surface)
         if self.state == "start":
-            surface.fill((100, 100, 255))#background
+            surface.fill((200, 200, 200))#background
 
         elif self.state == "running":
 
@@ -98,7 +124,7 @@ class States_manager:
 
 
             self.camera.draw(surface)
-            self.draw_grid(surface)
+
 
 
         elif self.state == "paused":
@@ -112,14 +138,14 @@ class States_manager:
 
 
     def update(self, surface):
-        surface.fill((100, 100, 100))#background
+        surface.fill((200, 200, 200))#background
         self.camera.update(self.player)
 
         if self.state == "start":
             pass
         elif self.state == "running":
             self.camera.update(self.player)
-            self.all_group.update()
+            self.all_group.update(self.all_group, self.player_group)
             self.player_group.update(self.all_group)
             self.items.update(self.player_group)
 

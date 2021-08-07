@@ -21,7 +21,11 @@ class Main_block(pygame.sprite.Sprite):
 
 
 
-    def update(self):
+    def update(self, all_group, player_group):
+        pass
+
+
+    def dig(self, player):
         pass
 
 
