@@ -1,5 +1,5 @@
 from constants import *
-import sys, pygame, player, camera, wall, block, random, main_drop
+import sys, pygame, player, camera, wall, block, random, main_drop, fuel
 
 
 
@@ -26,6 +26,8 @@ class States_manager:
             r = random.randint(0, GAME_WORLD_W) // BLOCK_SIZE * BLOCK_SIZE
             c = random.randint(0, GAME_WORLD_H) // BLOCK_SIZE * BLOCK_SIZE
             self.all_group.add(wall.Wall(r, c))
+
+        self.all_group.add(fuel.Fuel(0, 0))    
 
 
         # adds pickups
